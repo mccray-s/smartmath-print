@@ -31,3 +31,6 @@ onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
   - unrs-resolver
+catalog:
+  '@types/uuid': ^11.0.0
+  uuid: ^13.0.0

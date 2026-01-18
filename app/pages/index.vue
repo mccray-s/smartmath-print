@@ -1,32 +1,13 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'home',
+  layout: 'default',
 })
-
-const online = useOnline()
 </script>
 
 <template>
-  <div>
-    <Logos mb-6 />
-    <ClientOnly>
-      <Suspense>
-        <PageView v-if="online" />
-        <div v-else text-gray:80>
-          You're offline
-        </div>
-        <template #fallback>
-          <div op50 italic>
-            <span animate-pulse>Loading...</span>
-          </div>
-        </template>
-      </Suspense>
-      <template #fallback>
-        <div op50>
-          <span animate-pulse>...</span>
-        </div>
-      </template>
-    </ClientOnly>
-    <InputEntry />
+  <div class="h-full w-full">
+    <!-- Main content is handled by the layout (Preview Area) -->
+    <!-- This page might eventually hold specific routed content or just be empty if everything is in layout -->
+    <PrintPreview />
   </div>
 </template>

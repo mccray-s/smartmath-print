@@ -15,6 +15,8 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
+  srcDir: 'app',
+
   app: {
     head: {
       viewport: 'width=device-width,initial-scale=1',

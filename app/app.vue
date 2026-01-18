@@ -17,9 +17,16 @@ useHead({
 html,
 body,
 #__nuxt {
-  height: 100vh;
-  margin: 0;
   padding: 0;
+}
+
+@media print {
+  html,
+  body,
+  #__nuxt {
+    height: auto !important;
+    overflow: visible !important;
+  }
 }
 
 html.dark {

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev:pwa": "VITE_PLUGIN_PWA=true nuxt dev",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port 3200",
     "generate": "nuxt generate",
     "prepare": "nuxt prepare",
     "preview": "nuxt preview",
@@ -13,6 +13,9 @@
     "start:generate": "npx serve .output/public",
     "lint": "eslint .",
     "typecheck": "nuxt typecheck"
+  },
+  "dependencies": {
+    "uuid": "catalog:"
   },
   "devDependencies": {
     "@antfu/eslint-config": "catalog:dev",
@@ -22,6 +25,7 @@
     "@nuxt/eslint": "catalog:build",
     "@nuxtjs/color-mode": "catalog:build",
     "@pinia/nuxt": "catalog:build",
+    "@types/uuid": "catalog:",
     "@unocss/eslint-config": "catalog:build",
     "@unocss/nuxt": "catalog:build",
     "@vite-pwa/nuxt": "catalog:build",
