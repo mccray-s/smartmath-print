@@ -47,6 +47,10 @@ function applyPreset(max: number, terms: 2 | 3) {
           排版设置
         </h3>
         <div class="space-y-4">
+          <label class="block">
+            <span class="text-sm mb-1 block">学生姓名 (选填)</span>
+            <input v-model="config.layout.studentName" type="text" placeholder="留空则打印黑线" class="p-1 px-2 border border-gray-300 rounded bg-transparent w-full dark:border-gray-600">
+          </label>
           <div class="gap-4 grid grid-cols-2">
             <label class="block">
               <div class="mb-1 flex items-center justify-between">

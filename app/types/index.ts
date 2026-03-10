@@ -8,6 +8,7 @@ export interface MathConfig {
     totalPages: number
     horizontalGap: number
     verticalGap: number
+    studentName: string
   }
   logic: {
     operators: Operator[]

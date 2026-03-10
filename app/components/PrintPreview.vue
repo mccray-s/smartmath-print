@@ -55,6 +55,11 @@ function getPageQuestions(page: number) {
           </h1>
         </div>
         <div class="text-sm flex gap-8">
+          <div>
+            姓名: 
+            <span v-if="config.layout.studentName" class="font-bold underline underline-offset-4 decoration-black min-w-[3em] inline-block text-center">{{ config.layout.studentName }}</span>
+            <span v-else>______</span>
+          </div>
           <div>第 {{ page }} / {{ config.layout.totalPages }} 页</div>
           <div>对题: ______ 道</div>
           <div>用时: ______ 分</div>

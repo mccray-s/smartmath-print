@@ -12,6 +12,7 @@ export const useMathStore = defineStore('math', () => {
       totalPages: 1,
       horizontalGap: 4,
       verticalGap: 4,
+      studentName: '',
     },
     logic: {
       operators: ['+', '-'],
