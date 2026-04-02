@@ -5,34 +5,35 @@ export function useMathGenerator() {
   function generateQuestions(config: MathConfig): MathQuestion[] {
     const list: MathQuestion[] = []
     const seenSignatures = new Set<string>()
-    let attempts = 0
-    // Increase max attempts for more complex rules
-    const maxAttempts = ((config.layout as any).pageCount || 100) * 50
+    const targetCount = Math.max(1, Number((config.layout as any).pageCount) || 100)
+    const maxUniqueAttempts = targetCount * 50
+    let uniqueAttempts = 0
 
-    // Only generate up to total needed
-    // const totalNeeded = config.layout.totalPages * (config.layout.columns * 28) // approximate max
-    // Use the actual target from config if we could access store here,
-    // but the caller loop `list.length < ...` relies on pageCount passed in genConfig (which we hacked in store)
-    const targetCount = (config.layout as any).pageCount || 100
-
-    // The previous store hack: genConfig.layout.pageCount = totalQuestions
-    // So we just iterate until list filled or maxAttempts
-
-    while (list.length < targetCount && attempts < maxAttempts) {
-      attempts++
+    // First pass: prefer unique questions.
+    while (list.length < targetCount && uniqueAttempts < maxUniqueAttempts) {
+      uniqueAttempts++
       const q = generateSingleQuestion(config)
-      if (q) {
-        // Create a unique signature: string of terms + operators + hidden position
-        // e.g. "1,2|+|0" for "(_) + 2 = 3"
-        // e.g. "1,2|+|undefined" for "1 + 2 = (_)"
-        const signature = `${q.terms.join(',')}|${q.operators.join(',')}|${q.hideTermIndex}`
+      if (!q)
+        continue
 
-        if (!seenSignatures.has(signature)) {
-          seenSignatures.add(signature)
-          list.push(q)
-        }
-      }
+      const signature = `${q.terms.join(',')}|${q.operators.join(',')}|${q.hideTermIndex}`
+      if (seenSignatures.has(signature))
+        continue
+
+      seenSignatures.add(signature)
+      list.push(q)
     }
+
+    // Second pass: when rules are strict and unique pool is exhausted, allow duplicates to fill pages.
+    const maxFillAttempts = targetCount * 100
+    let fillAttempts = 0
+    while (list.length < targetCount && fillAttempts < maxFillAttempts) {
+      fillAttempts++
+      const q = generateSingleQuestion(config)
+      if (q)
+        list.push(q)
+    }
+
     return list
   }
 
